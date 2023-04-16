@@ -1,6 +1,8 @@
 import Header from './component/Header/index'
 import AddInput from "./component/AddInput";
 import {useCallback, useState} from "react";
+import TodoItem from "./component/TodoItem";
+import './App.scss'
 
 function App() {
   const [isInputShow, setIsInputShow] = useState(false)
@@ -20,6 +22,13 @@ function App() {
     <div className="App">
       <Header openInput={() => setIsInputShow(!isInputShow)}></Header>
       <AddInput isInputShow={isInputShow} addItem={addItem}></AddInput>
+      <ul className="todo-list">
+        {
+          todoList.map(todoItemData => {
+            return <TodoItem data={todoItemData} key={todoItemData.id}></TodoItem>
+          })
+        }
+      </ul>
     </div>
   );
 }
