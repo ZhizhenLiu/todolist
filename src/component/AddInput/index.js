@@ -1,8 +1,19 @@
 import './index.scss'
+import {useRef} from "react";
 
-export default function (props) {
+export default function AddInput(props) {
 
-  const { isInputShow } = props
+  const { isInputShow, addItem } = props
+  const inputRef = useRef(null);
+
+  function submit() {
+    const value = inputRef.current.value.trim();
+    if (value.length === 0) {
+      return;
+    }
+    addItem(value)
+    inputRef.current.value = ''
+  }
 
   return (
       <>
@@ -11,8 +22,8 @@ export default function (props) {
           ?
           (
             <div className="input-wrapper">
-              <input type="text" placeholder="请输入待办事项"/>
-              <button className="btn btn-primary">增加</button>
+              <input type="text" ref={inputRef} placeholder="请输入待办事项"/>
+              <button className="btn btn-primary" onClick={submit}>增加</button>
             </div>
           )
           :
